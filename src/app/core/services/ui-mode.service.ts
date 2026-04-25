@@ -53,7 +53,7 @@ export class UiModeService {
 		if (stored !== null) {
 			return JSON.parse(stored) === true;
 		}
-		let isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+		const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 		localStorage.setItem(UiModeService.STORAGE_KEY, JSON.stringify(isDark));
 		return isDark;
 	}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
@@ -9,37 +9,51 @@ import { UiModeService } from '../../services/ui-mode.service';
 	selector: 'app-navbar',
 	templateUrl: './navbar.component.html',
 	styleUrl: './navbar.component.css',
-	imports: [MenubarModule, ButtonModule],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+    // standalone: true,
+    imports: [MenubarModule, ButtonModule],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavbarComponent {
-	public readonly items: MenuItem[] = [
-		{
-			label: 'Home',
-			command: () => void this._router.navigate(['']),
-		},
-		{
-			label: 'Features',
-			routerLink: 'features',
-		},
-		{
-			label: 'Contact',
-			routerLink: 'contact',
-		},
-		{
-			label: 'About us',
-			routerLink: 'about',
-		},
-	];
+export class NavbarComponent implements OnInit {
 
-	private readonly _router = inject(Router);
-	private readonly _uiModeService = inject(UiModeService);
+public items: MenuItem[] | undefined;
 
-	public toggleTheme(): void {
-		this._uiModeService.toggleDarkMode();
-	}
+    private readonly _uiModeService = inject(UiModeService)
 
-	public isDarkMode(): boolean {
-		return this._uiModeService.isDarkMode();
-	}
+    private readonly _router = inject(Router);
+
+    public ngOnInit() {
+        this.items = [
+           {
+                label: 'Home',
+                command: () => {
+                    void this._router.navigate(['']);
+                }
+                // icon: 'pi pi-home'
+            },
+            {
+                label: 'Features',
+                routerLink: 'features'
+                // icon: 'pi pi-star'
+            },
+            {
+                label: 'Contact',
+                routerLink: 'contact'
+                // icon: 'pi pi-envelope'
+            },
+            {
+                label: 'About us',
+                routerLink: 'about'
+                // icon: 'pi pi-envelope'
+            },
+        ];
+    }
+
+    public toggleTheme():void {
+        this._uiModeService.toggleDarkMode();
+    }
+
+    public isDarkMode(): boolean {
+        return this._uiModeService.isDarkMode();
+    }
+
 }
