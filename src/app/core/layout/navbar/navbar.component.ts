@@ -6,16 +6,16 @@ import { ButtonModule } from 'primeng/button';
 import { UiModeService } from '../../services/ui-mode.service';
 
 @Component({
-	selector: 'app-navbar',
-	templateUrl: './navbar.component.html',
-	styleUrl: './navbar.component.css',
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.css',
     // standalone: true,
     imports: [MenubarModule, ButtonModule],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent implements OnInit {
 
-public items: MenuItem[] | undefined;
+    public items: MenuItem[] | undefined;
 
     private readonly _uiModeService = inject(UiModeService)
 
@@ -23,7 +23,7 @@ public items: MenuItem[] | undefined;
 
     public ngOnInit() {
         this.items = [
-           {
+            {
                 label: 'Home',
                 command: () => {
                     void this._router.navigate(['']);
@@ -32,7 +32,7 @@ public items: MenuItem[] | undefined;
             },
             {
                 label: 'Features',
-                routerLink: 'features'
+                routerLink: 'products'
                 // icon: 'pi pi-star'
             },
             {
@@ -48,7 +48,7 @@ public items: MenuItem[] | undefined;
         ];
     }
 
-    public toggleTheme():void {
+    public toggleTheme(): void {
         this._uiModeService.toggleDarkMode();
     }
 
